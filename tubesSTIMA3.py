@@ -14,4 +14,4 @@ def solution():
     inputKeyword = request.get_json(force=True)
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5010)
+    app.run(debug=True,port=5000)
