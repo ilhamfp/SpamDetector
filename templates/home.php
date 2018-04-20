@@ -50,12 +50,11 @@
 				$url = 'http://127.0.0.1:5000/';
 				if(isset($_POST['keywords']) && isset($_POST['username'])) {
 					if($_POST['keywords'] && $_POST['username']) {
-						tembak($url, $_POST);
-						exit();
+						showTweet($url, $_POST);
 					}	
 				}
 
-				function tembak($url, $data) {
+				function showTweet($url, $data) {
 					$ch = curl_init($url);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -74,11 +73,11 @@
 					";
 
 					foreach ( $arr->data as $data ){
-						echo createTweet($data);
+						echo getTweet($data);
 					}
 				}
 
-				function createTweet($data){
+				function getTweet($data){
 					$spamText = "<a class=\"not-spam\">Not Spam</a>";
 					if($data->spam){
 						$spamText = "<a class=\"spam\">Spam</a>";

@@ -4,7 +4,7 @@ import tweepy
 
 app = Flask(__name__)
 
-def ambilTweet(username):
+def getTweet(username):
     clean_tweets = []
     for x in range(5):
         clean_tweet = {}
@@ -56,7 +56,7 @@ def generate_date_string(s):
     return month_s + ' ' + date
 
 
-def cekSpam(clean_tweets, algorithm, keywords, exact):
+def getVerdict(clean_tweets, algorithm, keywords, exact):
     for i in range(len(clean_tweets)):
         if algorithm == 0:
             clean_tweets[i]["spam"] = True
@@ -73,9 +73,9 @@ def hello_world():
     keywords = body["keywords"][0].split(",")
     algorithm = int(body["algorithm"][0])
     username = body["username"][0].split('@')[-1]
-    clean_tweets = ambilTweet(username)
+    clean_tweets = getTweet(username)
     
-    cekSpam(clean_tweets, algorithm, keywords, True)
+    getVerdict(clean_tweets, algorithm, keywords, True)
     return json.dumps({'data':clean_tweets})
 
 if __name__ == '__main__':
