@@ -19,6 +19,7 @@ def ambilTweet(username):
         # tanggal = str(tweet.created_at)[5:10]
         clean_tweet["date"] = generate_date_string(tanggal)
         clean_tweets.append(clean_tweet)
+    print(clean_tweets)
     return clean_tweets
 
 def generate_date_string(s):

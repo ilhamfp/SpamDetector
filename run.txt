@@ -1,0 +1,3 @@
+Open 2 cmd
+run "python tubesstima3.py"
+run "php -S localhost:5000"
