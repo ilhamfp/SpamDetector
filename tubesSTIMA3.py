@@ -21,13 +21,13 @@ def getTweets(keywordSearch):
     for eachTweet in api.home_timeline(include_rts = True, tweet_mode="extended"):
         if keywordSearch.lower() in eachTweet.full_text.lower():
             tweet = {}
-            tweet["id"] = eachTweet.id
-            tweet["name"] = eachTweet.user.name
-            tweet["username"] = eachTweet.user.screen_name
-            tweet["text"] = eachTweet.full_text
-            tweet["image"] = eachTweet.author.profile_image_url_https
+            tweet["id"] = str(eachTweet.id)
+            tweet["name"] = str(eachTweet.user.name)
+            tweet["username"] = str(eachTweet.user.screen_name)
+            tweet["text"] = str(eachTweet.full_text)
+            tweet["image"] = str(eachTweet.author.profile_image_url_https)
             tweet["spam"] = False
-            tweet["date"] = eachTweet.created_at
+            tweet["date"] = str(eachTweet.created_at)
             tweets.append(tweet)
     print(tweets)
     return tweets
@@ -35,9 +35,9 @@ def getTweets(keywordSearch):
 def getVerdict(tweets, algorithm, keywordSpam, exact):
     for i in range(len(tweets)):
         if algorithm == 0:
-            tweets[i]["spam"] = boyer_moore(tweets[i]["text"], keywordSpam)
+            tweets[i]["spam"] = boyer_moore(tweets[i]["text"].lower(), keywordSpam)
         elif algorithm == 1:
-            tweets[i]["spam"] = KMP(tweets[i]["text"], keywordSpam)
+            tweets[i]["spam"] = KMP(tweets[i]["text"].lower(), keywordSpam)
         elif algorithm == 2:
             tweets[i]["spam"] = True
 
@@ -72,25 +72,28 @@ def countLPS(pattern):
     return lps
         
 # KMP implementation        
-def KMP(text, pattern):
+def KMP(text, patternList):
     # find the initial index where the pattern found in text using KMP algorithm
     kmp = []
-    j = 0
-    lps = countLPS(pattern)
-    for i in range(len(text)):
-        while j > 0 and text[i] != pattern[j]:
-            j = lps[j - 1]
-        if text[i] == pattern[j]: 
-            j += 1
-        if j == len(pattern):  # found the pattern
-             kmp.append(i-j+1)
-             j = lps[j-1]
-            
+    for pattern in patternList:
+        pattern = pattern.lower()
+        j = 0
+        lps = countLPS(pattern)
+        for i in range(len(text)):
+            while j > 0 and text[i] != pattern[j]:
+                j = lps[j - 1]
+            if text[i] == pattern[j]: 
+                j += 1
+            if j == len(pattern):  # found the pattern
+                 kmp.append(i-j+1)
+                 j = lps[j-1]
+                
     return len(kmp) > 0
 
 ### Boyer-Moore algorithm ###
 def boyer_moore(text, patternList):
     for pattern in patternList:
+        pattern = pattern.lower()
         i = 0
         while i < len(text):
             j = len(pattern) - 1
@@ -113,7 +116,7 @@ def boyer_moore(text, patternList):
                 j -= 1
             if j <= -1:
                 return True
-                
+
     return False
 
 

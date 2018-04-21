@@ -46,7 +46,7 @@
         <div class="row ">
             <div class="col-md-4 offset-md-4">
                 <ul class="list-unstyled CTAs">
-                    <li><a href="http://localhost:5000" class="about" style="padding: 20px; font-weight: bold;">Back</a></li>
+                    <li><a href="http://localhost:5000" class="about btnBack info" style="padding: 20px; font-weight: bold;">Back</a></li>
                 </ul>
             </div>
         </div>

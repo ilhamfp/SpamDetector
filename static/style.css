@@ -150,8 +150,6 @@ a.article, a.article:hover {
 }
 
 
-
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -362,4 +360,15 @@ a.article, a.article:hover {
 img {
     min-height: 40px;
     max-height: 40px;
+}
+
+.btnBack {
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    border-color: #2196F3;
+    color: dodgerblue
 }

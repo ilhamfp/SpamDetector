@@ -136,7 +136,7 @@
                                 <div class=\"qa-message-content\">"
                                     . $tweet->text.
                                     "<br><br>".
-                                    "<span class=\"qa-message-who-data\"><a href=\"http://twitter.com/".$tweet->username."/status/".$tweet->id. "\">View Summary</a></span>".
+                                    "<span class=\"qa-message-who-data\"><a href=\"http://twitter.com/".$tweet->username."/status/".$tweet->id. "\">View Tweet Source</a></span>".
                                     "<br>".
                                     "Verdict : ".
                                     $spamText.
