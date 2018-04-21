@@ -18,8 +18,11 @@ def getTweets(keywordSearch):
 
     #get tweet from a user's timeline
     tweets = []
-    for eachTweet in api.home_timeline(include_rts = True, tweet_mode="extended"):
+    count = 0
+    for eachTweet in tweepy.Cursor(api.home_timeline, tweet_mode="extended").items():
         if keywordSearch.lower() in eachTweet.full_text.lower():
+            count+=1
+            print(count)
             tweet = {}
             tweet["id"] = str(eachTweet.id)
             tweet["name"] = str(eachTweet.user.name)
@@ -29,15 +32,18 @@ def getTweets(keywordSearch):
             tweet["spam"] = False
             tweet["date"] = str(eachTweet.created_at)
             tweets.append(tweet)
+
+        if count==30:
+            break
     print(tweets)
     return tweets
 
 def getVerdict(tweets, algorithm, keywordSpam, exact):
     for i in range(len(tweets)):
         if algorithm == 0:
-            tweets[i]["spam"] = boyer_moore(tweets[i]["text"].lower(), keywordSpam)
-        elif algorithm == 1:
             tweets[i]["spam"] = KMP(tweets[i]["text"].lower(), keywordSpam)
+        elif algorithm == 1:
+            tweets[i]["spam"] = boyer_moore(tweets[i]["text"].lower(), keywordSpam)
         elif algorithm == 2:
             tweets[i]["spam"] = True
 

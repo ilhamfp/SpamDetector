@@ -13,7 +13,7 @@
         <div class="row" style="margin-bottom: 100px">
             <div class="col-md-4">
                 <h1 class="text-center" style="font-size: xx-large;">
-                    <img class="rounded" src="http://userpic.codeforces.com/140338/title/fab42bdb0bad56bd.jpg" style="max-width:80%; max-height:80%;"></a>
+                    <img class="rounded" src="static/13516140.jpg" style="max-width:80%; max-height:80%;"></a>
                     <br>
                     <br>
                     Ilham Firdausi Putra
@@ -23,22 +23,22 @@
             </div>
             <div class="col-md-4">
                 <h1 class="text-center" style="font-size: xx-large;">
-                    <img class="rounded" src="http://userpic.codeforces.com/140338/title/fab42bdb0bad56bd.jpg" style="max-width:80%; max-height:80%;"></a>
+                    <img class="rounded" src="static/13516155.jpg" style="max-width:80%; max-height:80%;"></a>
                     <br>
                     <br>
                     Restu Wahyu Kartiko
                     <br>
-                    <small class="text-muted">135161??</small>
+                    <small class="text-muted">13516155</small>
                 </h1>
             </div>
             <div class="col-md-4">
                 <h1 class="text-center" style="font-size: xx-large;">
-                    <img class="rounded" src="http://userpic.codeforces.com/140338/title/fab42bdb0bad56bd.jpg" style="max-width:80%; max-height:80%;"></a>
+                    <img class="rounded" src="static/13516023.jpg" style="max-width:80%; max-height:80%;"></a>
                     <br>
                     <br>
                     Jonathan Alvaro
                     <br>
-                    <small class="text-muted">13516???</small>
+                    <small class="text-muted">13516023</small>
                 </h1>
             </div>
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -34,8 +34,8 @@
 
                 <label for="select">Algorithm</label>
                 <select class="form-control" id="select" form="main-form" name="algorithm">
-                    <option value="0">Boyer-Moore</option>
-                    <option value="1">KMP</option>
+                    <option value="0">Knuth-Morris-Pratt</option>
+                    <option value="1">Boyer-Moore</option>
                     <option value="2">Regex</option>
                 </select>
                 <br>
@@ -77,8 +77,8 @@
             <?php
 
                 $url = 'http://127.0.0.1:5000/';
-                if(isset($_POST['keywordSpam']) && isset($_POST['keywordSearch'])) {
-                    if($_POST['keywordSpam'] && $_POST['keywordSearch']) {
+                if(isset($_POST['keywordSpam']) || isset($_POST['keywordSearch'])) {
+                    if($_POST['keywordSpam'] || $_POST['keywordSearch']) {
                         showTweet($url, $_POST);
                     }   
                 }
