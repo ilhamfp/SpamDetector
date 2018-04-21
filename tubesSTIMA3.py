@@ -38,7 +38,7 @@ def getTweets(keywordSearch):
     print(tweets)
     return tweets
 
-def getVerdict(tweets, algorithm, keywordSpam, exact):
+def getVerdict(tweets, algorithm, keywordSpam):
     for i in range(len(tweets)):
         if algorithm == 0:
             tweets[i]["spam"] = KMP(tweets[i]["text"].lower(), keywordSpam)
@@ -58,7 +58,7 @@ def hello_world():
 
     tweetHasil = getTweets(keywordSearch)
     
-    getVerdict(tweetHasil, algorithm, keywordSpam, True)
+    getVerdict(tweetHasil, algorithm, keywordSpam)
     return json.dumps({'hasil':tweetHasil})
 
 
