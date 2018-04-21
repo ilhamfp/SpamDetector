@@ -113,7 +113,8 @@ def boyer_moore(text, patternList):
                 j -= 1
             if j <= -1:
                 return True
-        return False
+                
+    return False
 
 
 if __name__ == '__main__':
