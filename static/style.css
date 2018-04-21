@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #EEEEEE;
+    background: #fafafa;
 }
 
 p {
@@ -22,7 +22,6 @@ a, a:hover, a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
-
 
 .navbar {
     padding: 15px 10px;
@@ -52,13 +51,19 @@ a, a:hover, a:focus {
 .wrapper {
     display: flex;
     align-items: stretch;
-    perspective: 1500px;
 }
 
 #sidebar {
     padding: 10px;
-    min-width: 250px;
-    max-width: 250px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+
+    width: 250px;
+    
     background: #7386D5;
     color: #fff;
     transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
@@ -135,12 +140,10 @@ ul.CTAs a {
     border-radius: 5px;
     margin-bottom: 5px;
 }
-
-a.about {
+a.download {
     background: #fff;
     color: #7386D5;
 }
-
 a.article, a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
@@ -148,14 +151,21 @@ a.article, a.article:hover {
 
 
 
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-    padding: 20px;
-    width: 100%;
+    width: calc(100% - 250px);
+    padding: 40px;
     min-height: 100vh;
     transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#content.active {
+    width: 100%;
 }
 
 #sidebarCollapse {
