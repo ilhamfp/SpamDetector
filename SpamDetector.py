@@ -1,6 +1,7 @@
 from flask import Flask, request
 import json
 import tweepy
+import re
 
 app = Flask(__name__)
 
@@ -59,7 +60,7 @@ def getVerdict(tweets, algorithm, keywordSpam):
         elif algorithm == 1:
             tweets[i]["spam"] = boyer_moore(tweets[i]["text"].lower(), keywordSpam)
         elif algorithm == 2:
-            tweets[i]["spam"] = True
+            tweets[i]["spam"] = Regex(tweets[i]["text"].lower(), keywordSpam)
 
 @app.route('/', methods=['POST'])
 def hello_world():
@@ -179,8 +180,8 @@ def Regex(text, patternList):
     return type : boolean
     """
     ret = []
-    for pat in pattern:
-        matches = re.finditer(pat, line);
+    for pattern in patternList:
+        matches = re.finditer(pattern, text);
         for match in matches:
             ret.append(match.start())
             break
