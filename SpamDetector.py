@@ -181,11 +181,21 @@ def Regex(text, patternList):
     """
     ret = []
     for pattern in patternList:
-        matches = re.finditer(pattern, text);
-        for match in matches:
-            ret.append(match.start())
+        pattern = pattern.split(' ')
+        tmp = [-1]
+        for pat in pattern:
+            matches = re.finditer(pat, text);
+            for match in matches:
+                if match.start() < tmp[len(tmp)-1]:
+                    break
+                tmp.append(match.start())
+                break;
+        if len(tmp) != len(pattern)+1:
             break
+        else:
+            ret.append(tmp[0])
+    
+    return len(ret) > 0
 
-    return len(ret) == len(patternList)
 if __name__ == '__main__':
     app.run(debug = True)
