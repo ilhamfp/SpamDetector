@@ -1,6 +1,7 @@
 def boyer_moore(text, pattern):
     i = 0
-    while i < len(text):
+    j = 0
+    while (i + j) < len(text):
         j = len(pattern) - 1
         while j >= 0:
             if text[i + j] != pattern[j]:
