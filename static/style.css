@@ -1,8 +1,4 @@
-/*
-    DEMO STYLE
-*/
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -234,18 +230,19 @@ a.article, a.article:hover {
 
 }
 
+
 .bootstrap-tagsinput input {
     min-width: 25em !important;
 }
-/* spam or not spam */
+/* Style Spam */
 .spam {
     font-weight: bold;
-    color: #F44336;
+    color: #FF0000;
 }
 
 .not-spam {
     font-weight: bold;
-    color: #4CAF50;
+    color: #00FF00;
 }
 
 /* Timeline Styling */

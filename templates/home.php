@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
     <link rel="stylesheet" href="static/style.css" />
-    <title>Tugas Strategi Algoritma 3</title>
-
+    <title>Spam Detector</title>
      <!-- Tweet Timeline Style                                                      -->
      <!-- Source: https://bootsnipp.com/snippets/featured/timeline-single-column    -->
      <!-- Sidebar & Content Style                                                   -->
@@ -24,11 +23,14 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Tugas Strategi Algoritma 3</h3>
+                <h3>Welcome!</h3>
             </div>
             <br>
+
+            <!-- Sidebar Form -->
+
             <form action = "<?php $_PHP_SELF ?>" method = "POST" id="main-form">
-                <label for="keywordSearch">Tweet Keywords:</label>
+                <label for="keywordSearch">Tweet Keyword:</label>
                 <input type="text" class="form-control" placeholder=" Pemilu 2019, Presiden, Indonesia "  id="keywordSearch" name="keywordSearch">
                 <br>
 
@@ -42,13 +44,13 @@
 
                 <label for="keyword-container">Spam Keywords</label>
                 <input type="text" id="keyword-container" name="keywordSpam" class="form-control" value="" data-role="tagsinput" placeholder=" Top 10 Fakta Mengejutkan!" />
-                <br>
-                <br>
-                <button type="submit" class="btn btn-primary btn-block">Proceed</button>
+
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10%">Run</button>
             </form>
 
+
             <ul class="list-unstyled CTAs">
-                <li><a href="http://localhost:5000/about" class="about">About Us</a></li>
+                <li><a href="http://localhost:5000/about" class="about" style="margin-top: 110%">About Us</a></li>
             </ul>
         </nav>
 
@@ -67,12 +69,13 @@
                     </div>
 
                     <h1 class="text-center">
-                        Spam Detection <small class="text-muted">using String Matching Algorithm</small>
+                        <img class="rounded" src="static/bird.png"></a>
+                        Twitter Spam Detector
                     </h1>
                 </div>
             </nav>
             
-            <!-- KONTEN -->
+            <!-- Tweet Content -->
 
             <?php
 
@@ -87,29 +90,26 @@
                     $ch = curl_init($url);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                    
-                    // execute!
                     $response = curl_exec($ch);
-                    
-                    // close the connection, release resources used
                     curl_close($ch);
-                    
-                    // do anything you want with your response
+
+                    // Ambil hasil
                     $arr = json_decode($response);
-                    
                     echo "
                     <br>
                     ";
 
+                    // Untuk setiap hasil tweet, echo hasilnya
                     foreach ( $arr->hasil as $tweet ){
                         echo getTweet($tweet);
                     }
                 }
 
                 function getTweet($tweet){
-                    $spamText = "<a class=\"not-spam\">Not Spam</a>";
                     if($tweet->spam){
-                        $spamText = "<a class=\"spam\">Spam</a>";
+                        $verdictText = "<a class=\"spam\">Spam!!</a>";
+                    } else {
+                        $verdictText = "<a class=\"not-spam\">Not spam</a>";
                     }
                     $tweet = "
                     <div class=\"qa-message-list\" id=\"wallmessages\">
@@ -136,19 +136,17 @@
                                 <div class=\"qa-message-content\">"
                                     . $tweet->text.
                                     "<br><br>".
-                                    "<span class=\"qa-message-who-data\"><a href=\"http://twitter.com/".$tweet->username."/status/".$tweet->id. "\">View Tweet Source</a></span>".
-                                    "<br>".
                                     "Verdict : ".
-                                    $spamText.
+                                    $verdictText.
+                                    "<br>".
+                                    "<span class=\"qa-message-who-data\"><a href=\"http://twitter.com/".$tweet->username."/status/".$tweet->id. "\">View Tweet Source</a></span>".
                                 "</div>
                             </div>
                         </div>
                     ";
-
                     return $tweet;
                 }
             ?>
-                
         </div>
     </div>
 
@@ -160,12 +158,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
-
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
@@ -173,7 +169,6 @@
                 $(this).toggleClass('active');
             });
         });
-
     </script>
 </body>
 </html>

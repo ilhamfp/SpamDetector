@@ -10,6 +10,8 @@
 </head>
 <body>
     <div class="container" style="padding: 20px">
+
+        <!-- Info Row -->
         <div class="row" style="margin-bottom: 100px">
             <div class="col-md-4">
                 <h1 class="text-center" style="font-size: xx-large;">
@@ -43,6 +45,8 @@
             </div>
 
         </div>
+
+        <!-- Back Button -->
         <div class="row ">
             <div class="col-md-4 offset-md-4">
                 <ul class="list-unstyled CTAs">
