@@ -1,3 +1,11 @@
+import tweepy
+
+consumer_key = "uRmhYow4fOoI1C6NrHd2hTRyE"  
+consumer_secret = "YGTUR6sQyijpP8Vu5dhNIAEJTt88wJaklEdWtqxl1AYUUCwKJl"  
+access_key = "908013362801401856-ZZMgepM0JVWpeNYRnuN9P0tTetXymOE"  
+access_secret = "eyOgN7WB6Gtxwl2u8mqZ1XlhvboG2lddl4rBY8mUmlCJQ"
+
+
 # Tweeter API to get tweet from user home timeline
 def getTweets(keywordSearch):
     """
