@@ -28,6 +28,4 @@ def hello_world():
     return json.dumps({'hasil':tweetHasil})
 
 if __name__ == '__main__':
-    print(boyer_moore("asu hafiz", ["af"]))
-    input()
     app.run(debug = True)
