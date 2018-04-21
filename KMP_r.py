@@ -16,7 +16,6 @@ def KMP(text, pattern):
     kmp = []
     j = 0
     lps = countLPS(pattern)
-    print(lps)
     for i in range(len(text)):
         while j > 0 and text[i] != pattern[j]:
             j = lps[j - 1]
@@ -25,8 +24,7 @@ def KMP(text, pattern):
         if j == len(pattern):  # found the pattern
              kmp.append(i-j+1)
              j = lps[j-1]
-            
-    return kmp
+    return len(kmp) > 0
 
 if __name__ == "__main__":
     print( KMP("abacaabacabacababa", "acabaca"))

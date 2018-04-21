@@ -4,27 +4,40 @@ import tweepy
 
 app = Flask(__name__)
 
-def getTweet(keywordSearch):
+consumer_key = "uRmhYow4fOoI1C6NrHd2hTRyE"  
+consumer_secret = "YGTUR6sQyijpP8Vu5dhNIAEJTt88wJaklEdWtqxl1AYUUCwKJl"  
+access_key = "908013362801401856-ZZMgepM0JVWpeNYRnuN9P0tTetXymOE"  
+access_secret = "eyOgN7WB6Gtxwl2u8mqZ1XlhvboG2lddl4rBY8mUmlCJQ"
+
+def getTweets(keywordSearch):
+    #initialize tweepy
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_key, access_secret)
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    keywordSearch = keywordSearch.lower()
+
+    #get tweet from a user's timeline
     tweets = []
-    for x in range(30):
-        tweet = {}
-        tweet["id"] = "Id"+str(x)
-        tweet["name"] = "Name"+str(x)
-        tweet["username"] = "Username"+str(x)
-        tweet["text"] = "Text"+str(x)
-        tweet["image"] = "https://avatars2.githubusercontent.com/u/31740013?s=460&v=4"
-        tweet["spam"] = False
-        tweet["date"] = str(x) + " Januari 2018"
-        tweets.append(tweet)
+    for eachTweet in api.home_timeline(include_rts = True, tweet_mode="extended"):
+        if keywordSearch.lower() in eachTweet.full_text.lower():
+            tweet = {}
+            tweet["id"] = eachTweet.id
+            tweet["name"] = eachTweet.user.name
+            tweet["username"] = eachTweet.user.screen_name
+            tweet["text"] = eachTweet.full_text
+            tweet["image"] = eachTweet.author.profile_image_url_https
+            tweet["spam"] = False
+            tweet["date"] = eachTweet.created_at
+            tweets.append(tweet)
     print(tweets)
     return tweets
 
 def getVerdict(tweets, algorithm, keywordSpam, exact):
     for i in range(len(tweets)):
         if algorithm == 0:
-            tweets[i]["spam"] = True
+            tweets[i]["spam"] = boyer_moore(tweets[i]["text"], keywordSpam)
         elif algorithm == 1:
-            tweets[i]["spam"] = True
+            tweets[i]["spam"] = KMP(tweets[i]["text"], keywordSpam)
         elif algorithm == 2:
             tweets[i]["spam"] = True
 
@@ -41,6 +54,66 @@ def hello_world():
     
     getVerdict(tweetHasil, algorithm, keywordSpam, True)
     return json.dumps({'hasil':tweetHasil})
+
+
+### KMP Algorithm ###
+# Finding LPS
+def countLPS(pattern):
+    # finding the LPS from string pattern
+    lps = [0]
+    
+    for i in range(1, len(pattern)):
+        j = lps[i - 1]
+        while j > 0 and pattern[j] != pattern[i]:
+            j = lps[j - 1]
+        if pattern[j] == pattern[i]: lps.append(j+1)
+        else: lps.append(j)
+    
+    return lps
+        
+# KMP implementation        
+def KMP(text, pattern):
+    # find the initial index where the pattern found in text using KMP algorithm
+    kmp = []
+    j = 0
+    lps = countLPS(pattern)
+    for i in range(len(text)):
+        while j > 0 and text[i] != pattern[j]:
+            j = lps[j - 1]
+        if text[i] == pattern[j]: 
+            j += 1
+        if j == len(pattern):  # found the pattern
+             kmp.append(i-j+1)
+             j = lps[j-1]
+            
+    return len(kmp) > 0
+
+### Boyer-Moore algorithm ###
+def boyer_moore(text, pattern):
+    i = 0
+    while i < len(text):
+        j = len(pattern) - 1
+        while j >= 0:
+            if text[i + j] != pattern[j]:
+                closest_occurence = pattern.rfind(text[i + j])
+                if closest_occurence == -1:
+                    j = len(pattern) - 1
+                    i += j + 1
+                    break
+                elif closest_occurence >= j:
+                    i += 1
+                    j = len(pattern) - 1
+                    break
+                else:
+                    shift = j - closest_occurence
+                    i += shift
+                    j = len(pattern) -1
+                    break
+            j -= 1
+        if j <= -1:
+            return True
+    return False
+
 
 if __name__ == '__main__':
     app.run(debug = True)

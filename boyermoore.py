@@ -20,7 +20,7 @@ def boyer_moore(text, pattern):
                     break
             j -= 1
         if j <= -1:
-            return i
-    return -1
+            return True
+    return False
 
 print(boyer_moore('abacaabacabacababa', 'acabaca'))
