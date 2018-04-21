@@ -9,8 +9,14 @@ consumer_secret = "YGTUR6sQyijpP8Vu5dhNIAEJTt88wJaklEdWtqxl1AYUUCwKJl"
 access_key = "908013362801401856-ZZMgepM0JVWpeNYRnuN9P0tTetXymOE"  
 access_secret = "eyOgN7WB6Gtxwl2u8mqZ1XlhvboG2lddl4rBY8mUmlCJQ"
 
+# Tweeter API to get tweet from user home timeline
 def getTweets(keywordSearch):
-    #initialize tweepy
+    """
+    param keywordSearch : keyword from a sentence
+    keywordSearch type : string
+    return : list of string that contains substring keywordSearch
+    return type : list of string
+    """
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
@@ -39,6 +45,14 @@ def getTweets(keywordSearch):
     return tweets
 
 def getVerdict(tweets, algorithm, keywordSpam):
+    """
+    param tweets : list of tweet to scan
+    tweet type : list of string
+    param algorithm : KMP if 0, boyerr_moore if 1, regex either 
+    algorithm type : int
+    param keywordSpam : spam words
+    keywordSpam  type : list of string
+    """
     for i in range(len(tweets)):
         if algorithm == 0:
             tweets[i]["spam"] = KMP(tweets[i]["text"].lower(), keywordSpam)
@@ -49,6 +63,9 @@ def getVerdict(tweets, algorithm, keywordSpam):
 
 @app.route('/', methods=['POST'])
 def hello_world():
+    """
+    main program 
+    """
     body = dict(request.form)
     print(body)
 
@@ -56,15 +73,24 @@ def hello_world():
     algorithm = int(body["algorithm"][0])
     keywordSearch = body["keywordSearch"][0]
 
-    tweetHasil = getTweets(keywordSearch)
+    tweetHasil = getTweets(keywordSearch) # getting tweets
     
-    getVerdict(tweetHasil, algorithm, keywordSpam)
+    getVerdict(tweetHasil, algorithm, keywordSpam) # decide wether a tweet is spam or not
     return json.dumps({'hasil':tweetHasil})
 
 
 ### KMP Algorithm ###
+
 # Finding LPS
 def countLPS(pattern):
+    """
+    param text : text to scan
+    text type : string
+    param patternList : list of spam word
+    patternList type : list of string
+    return : true if text contain all string in patternList, false either
+    return type : boolean
+    """
     # finding the LPS from string pattern
     lps = [0]
     
@@ -79,6 +105,14 @@ def countLPS(pattern):
         
 # KMP implementation        
 def KMP(text, patternList):
+    """
+    param text : text to scan
+    text type : string
+    param patternList : list of spam word
+    patternList type : list of string
+    return : true if text contain all string in patternList, false either
+    return type : boolean
+    """
     # find the initial index where the pattern found in text using KMP algorithm
     kmp = []
     for pattern in patternList:
@@ -98,6 +132,14 @@ def KMP(text, patternList):
 
 ### Boyer-Moore algorithm ###
 def boyer_moore(text, patternList):
+    """
+    param text : text to scan
+    text type : string
+    param patternList : list of spam word
+    patternList type : list of string
+    return : true if text contain all string in patternList, false either
+    return type : boolean
+    """
     for pattern in patternList:
         pattern = pattern.lower()
         i = 0
@@ -126,6 +168,23 @@ def boyer_moore(text, patternList):
 
     return False
 
+# regex algorithm to find string
+def Regex(text, patternList):
+    """
+    param text : text to scan
+    text type : string
+    param patternList : list of spam word
+    patternList type : list of string
+    return : true if text contain all string in patternList, either false
+    return type : boolean
+    """
+    ret = []
+    for pat in pattern:
+        matches = re.finditer(pat, line);
+        for match in matches:
+            ret.append(match.start())
+            break
 
+    return len(ret) == len(patternList)
 if __name__ == '__main__':
     app.run(debug = True)
