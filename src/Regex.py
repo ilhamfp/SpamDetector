@@ -12,6 +12,8 @@ def Regex(text, patternList):
     """
     ret = []
     for pattern in patternList:
+        if(len(pattern) == 0):
+            continue
         pattern = pattern.split(' ')
         tmp = [-1]
         for pat in pattern:
