@@ -15,7 +15,7 @@ def Regex(text, patternList):
         pattern = pattern.split(' ')
         tmp = [-1]
         for pat in pattern:
-            matches = re.finditer(pat, text);
+            matches = re.finditer(pat.lower(), text);
             for match in matches:
                 if match.start() < tmp[len(tmp)-1]:
                     break

@@ -1,3 +1,7 @@
+from Regex import Regex
+from Boyer_Moore import boyer_moore
+from KMP import KMP, countLPS
+
 def getVerdict(tweets, algorithm, keywordSpam):
     """
     param tweets : list of tweet to scan

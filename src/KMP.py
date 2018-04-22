@@ -36,6 +36,8 @@ def KMP(text, patternList):
     kmp = []
     for pattern in patternList:
         pattern = pattern.lower()
+        if(len(pattern) == 0):
+            continue
         j = 0
         lps = countLPS(pattern)
         for i in range(len(text)):

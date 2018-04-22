@@ -28,4 +28,4 @@ def hello_world():
     return json.dumps({'hasil':tweetHasil})
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()

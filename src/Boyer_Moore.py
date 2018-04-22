@@ -8,7 +8,7 @@ def boyer_moore(text, patternList):
     return type : boolean
     """
     for pattern in patternList:
-        if len(pattern) > len(text):
+        if len(pattern) > len(text) or len(pattern) == 0:
             continue
         pattern = pattern.lower()
         i = 0

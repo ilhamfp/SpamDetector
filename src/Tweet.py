@@ -22,7 +22,7 @@ def getTweets(keywordSearch):
     #get tweet from a user's timeline
     tweets = []
     count = 0
-    for eachTweet in tweepy.Cursor(api.home_timeline, tweet_mode="extended").items():
+    for eachTweet in tweepy.Cursor(api.search,q=keywordSearch, lang="id", tweet_mode="extended").items():
         if keywordSearch.lower() in eachTweet.full_text.lower():
             count+=1
             print(count)
